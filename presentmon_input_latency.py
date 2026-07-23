@@ -16,7 +16,7 @@ import sys
 from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterable, Sequence
+from typing import Iterable, Sequence, TextIO
 
 
 METRICS = {
@@ -82,6 +82,20 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         help="include rows at or before this TimeInMs value",
     )
     parser.add_argument(
+        "--ignore-start",
+        type=float,
+        default=0.0,
+        metavar="A",
+        help="ignore the first A seconds of the capture (default: 0)",
+    )
+    parser.add_argument(
+        "--ignore-end",
+        type=float,
+        default=0.0,
+        metavar="B",
+        help="ignore the last B seconds of the capture (default: 0)",
+    )
+    parser.add_argument(
         "--percentiles",
         default="50,90,95,99,99.9",
         metavar="LIST",
@@ -92,6 +106,10 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     if args.start_ms is not None and args.end_ms is not None:
         if args.start_ms > args.end_ms:
             parser.error("--start-ms cannot be greater than --end-ms")
+    if args.ignore_start < 0.0:
+        parser.error("--ignore-start cannot be negative")
+    if args.ignore_end < 0.0:
+        parser.error("--ignore-end cannot be negative")
 
     try:
         args.percentiles = parse_percentiles(args.percentiles)
@@ -192,28 +210,81 @@ def row_matches(row: dict[str, str], args: argparse.Namespace) -> bool:
     return True
 
 
+def open_capture_csv(path: Path) -> tuple[csv.DictReader[str], TextIO]:
+    try:
+        file = path.open("r", encoding="utf-8-sig", newline="")
+    except OSError as exc:
+        raise RuntimeError(f"cannot open {path}: {exc}") from exc
+
+    reader = csv.DictReader(file)
+    if reader.fieldnames is None:
+        file.close()
+        raise RuntimeError("the file has no CSV header")
+    return reader, file
+
+
+def capture_time_span(path: Path) -> tuple[float | None, float | None]:
+    """Return the min/max TimeInMs across the whole capture file."""
+    reader, file = open_capture_csv(path)
+    first_time: float | None = None
+    last_time: float | None = None
+    try:
+        for row in reader:
+            if row.get("Application") == "Application":
+                continue
+            time_ms = parse_finite_float(row.get("TimeInMs"))
+            if time_ms is None:
+                continue
+            first_time = time_ms if first_time is None else min(first_time, time_ms)
+            last_time = time_ms if last_time is None else max(last_time, time_ms)
+    finally:
+        file.close()
+    return first_time, last_time
+
+
+def apply_ignore_window(args: argparse.Namespace, path: Path) -> None:
+    """Tighten start/end TimeInMs using --ignore-start / --ignore-end."""
+    if args.ignore_start == 0.0 and args.ignore_end == 0.0:
+        return
+
+    capture_first, capture_last = capture_time_span(path)
+    if capture_first is None or capture_last is None:
+        raise RuntimeError("cannot apply ignore window: no valid TimeInMs values found")
+
+    if args.ignore_start > 0.0:
+        bound = capture_first + args.ignore_start * 1000.0
+        args.start_ms = bound if args.start_ms is None else max(args.start_ms, bound)
+    if args.ignore_end > 0.0:
+        bound = capture_last - args.ignore_end * 1000.0
+        args.end_ms = bound if args.end_ms is None else min(args.end_ms, bound)
+
+    if (
+        args.start_ms is not None
+        and args.end_ms is not None
+        and args.start_ms > args.end_ms
+    ):
+        raise RuntimeError(
+            "ignore window leaves no overlap "
+            f"(effective TimeInMs range {args.start_ms:,.4f} to {args.end_ms:,.4f})"
+        )
+
+
 def read_capture(
     path: Path, args: argparse.Namespace
 ) -> tuple[dict[str, GroupSamples], int, float | None, float | None]:
+    apply_ignore_window(args, path)
+
     metric_keys = selected_metric_keys(args.metric)
     groups: dict[str, GroupSamples] = defaultdict(GroupSamples)
     selected_rows = 0
     first_time: float | None = None
     last_time: float | None = None
 
-    try:
-        file = path.open("r", encoding="utf-8-sig", newline="")
-    except OSError as exc:
-        raise RuntimeError(f"cannot open {path}: {exc}") from exc
-
+    reader, file = open_capture_csv(path)
     with file:
-        reader = csv.DictReader(file)
-        if reader.fieldnames is None:
-            raise RuntimeError("the file has no CSV header")
-
         required = {"Application", "ProcessID", "TimeInMs"}
         required.update(METRICS[key][0] for key in metric_keys)
-        missing_columns = sorted(required.difference(reader.fieldnames))
+        missing_columns = sorted(required.difference(reader.fieldnames or ()))
         if missing_columns:
             raise RuntimeError(
                 "missing required PresentMon column(s): " + ", ".join(missing_columns)
