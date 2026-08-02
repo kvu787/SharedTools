@@ -1,3 +1,12 @@
+# VSync input latency
+
+Based on the PresentMon captures in `C:\Users\k\Repository\SharedTools\SavedLogOutput\aoe4 input latency testing`, it seems like using VSync without VRR introduces 2 frames of input latency for a total upper bound of 4 frames of input latency.
+I tried various configurations, but I couldn't eliminate that extra input latency.
+
+Using VRR results in an upper bound of 2 frames of input latency, which is pretty good.
+
+# Misc
+
 ```powershell
 python "C:\Users\kevin\Repository\SharedTools\presentmon_input_latency.py" "C:\Users\kevin\Repository\Unity\ZoomTracks\ZoomTracks\MyLogOutput\2026-07-23_03-54-26\PresentMon.csv"
 python "C:\Users\kevin\Repository\SharedTools\presentmon_input_latency.py" "C:\Users\kevin\Repository\Unity\ZoomTracks\ZoomTracks\MyLogOutput\2026-07-23_03-54-26\PresentMon.csv" --ignore-start 10 --ignore-end 10
