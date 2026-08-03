@@ -1,3 +1,12 @@
+# List of nvidia things to set after reset
+
+* ctrl shift win B = driver reboot
+* battery boost
+* power management mode
+* gsync
+
+---------
+
 Your suspicion fits today’s evidence: demotions vanished after resets/reapplications, while app code didn’t change. Here’s a tiered reset procedure tuned to your setup (Legion + NVIDIA + G-SYNC + PresentMon).
 
 ---
