@@ -5,6 +5,10 @@ I tried various configurations, but I couldn't eliminate that extra input latenc
 
 Using VRR results in an upper bound of 2 frames of input latency, which is pretty good.
 
+## More tests
+
+After another barrage of tests with AOE4, ZoomTracks, and VsyncStutterTests, I still couldn't get a 2-frame input latency bound without GSync. So it still seems like GSync is required to get that ideal input latency.
+
 # Misc
 
 ```powershell
