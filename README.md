@@ -1,3 +1,76 @@
+# Recommended setup for Unity and Godot games
+
+System setup:
+
+* Setup PA278QGV like this:
+  * Connect to laptop's Thunderbolt 5 ports using DisplayPort (monitor side) to USB-C (laptop side) cable
+  * OSD > Menu > Settings > All Reset = YES
+  * After reset, disable energy saving mode
+  * OSD > Menu > Settings > Dynamic Dimming = OFF
+  * OSD > Menu > Settings > OSD Setup > OSD Timeout = Max
+  * OSD > Menu > Settings > OSD Setup > DDC/CI = OFF
+  * OSD > Menu > Settings > OSD Setup > Transparency  = 0
+  * OSD > Menu > Settings > Sound > Volume = 0
+  * OSD > Menu > Settings > Sound > Mute = ON
+  * OSD > Menu > Settings > ASUS Power Sync = OFF
+  * OSD > Menu > Image > Trace Free = 0
+  * OSD > Menu > Palette > Brightness = 150
+  * OSD > Menu > Settings > MediaSync = ON
+* Setup U2717D like this:
+  * Connect to laptop's Thunderbolt 5 ports using DisplayPort (monitor side) to USB-C (laptop side) cable
+  * OSD > Others > Reset Others
+  * OSD > Others > Factory Reset
+  * OSD > Menu > Timer = 60 s
+  * OSD > Menu > Transparency = 0
+  * OSD > Brightness/Contrast > Brightness = 20
+  * OSD > Others > DDC/CI = Disable
+* Do a "Ctrl + Shift + Win + B"
+* Do a clean reinstall of the graphics driver
+  * Or: use Nvidia Profile Inspector to reset global settings and delete per-program profiles
+  * Or: Ctrl + Shift + Win + B
+* Open Nvidia App and disable "Battery Boost" in global settings
+* Open Nvidia control panel (NVCP) and enable gsync
+  * Make sure that you check the box to enable PA278QGV even though nvidia complains that it is not verified compatible
+  * Turn gsync on/off/on or off/on/off/on to make sure it fully applies
+  * Turn on gsync indicator
+* Do a "Ctrl + Shift + Win + B"
+* In windows display settings:
+  * Arrange all three screens (including laptop screen)
+  * Set PA278QGV to main display
+  * Set PA278QGV to 120 hz
+  * Set U2717D to 59.95 hz
+  * Disconnect the laptop screen
+* Open nvcp
+  * Set "global settings > power management mode = prefer maximum performance" 
+  * Ensure that "global settings > monitor technology" is already set to "g-sync, g-sync compatible"
+* legion space
+  * toggle it between performance and balance a few times and then set to performance
+
+Per program setup:
+
+* Create an nvcp profile for the exe
+* Set the following in the nvcp profile
+  * low latency mode = ultra
+  * max frame rate = off, or anything from 60 to 110
+  * vertical sync = on
+* Launch the game with a cmd+PowerShell launcher that sets process priority to "High"
+* On the secondary monitor (U2717D) you should be able to play a fullscreen Youtube video in Edge browser that hardware accel enabled, and the game should still run smoothly on the primary monitor
+
+Tested with:
+
+* Windows 11 Pro 25H2 26200.8875
+* Nvidia Game Ready Driver 596.49
+* Primary monitor: Asus ProArt PA278QGV
+* Secondary monitor: Dell UltraSharp U2717D
+* Cable Matters 54Gbps Unidirectional USB C to DisplayPort 2.1 Cable
+  * Cable Matters Product ID = 201456
+* 2025 Lenovo Legion 9i 18IAX10
+  * Intel Core Ultra 9 275HX
+  * NVIDIA GeForce RTX 5090 Laptop GPU
+  * Screen variant: 2D-only, non-3D WQUXGA (3840x2400)
+  * 1x HDMI port
+  * 2x Thunderbolt 5 ports
+
 # VSync input latency
 
 Based on the PresentMon captures in `C:\Users\k\Repository\SharedTools\SavedLogOutput\aoe4 input latency testing`, it seems like using VSync without VRR introduces 2 frames of input latency for a total upper bound of 4 frames of input latency.
