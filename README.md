@@ -2,6 +2,8 @@
 
 System setup:
 
+* Earlier experiments seemed to indicate that enabling hardware accelerated graphics scheduling, using more than one monitor, and/or playing a youtube video or other streaming video on the second monitor caused problems.
+  * Currently, I haven't reproduced these issues when doing any of those things, so I no longer recommend avoiding those.
 * Keep the laptop lid open even if you're using external monitor/keyboard/mouse instead of using the laptop's built-in screen/keyboard/trackpad
   * It's possible that closing the laptop lid triggers some odd firmware/software states
   * I speculate that some display issues awhile back were caused by using the laptop with the lid closed
