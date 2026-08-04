@@ -59,6 +59,11 @@ Per program setup:
   * low latency mode = ultra
   * max frame rate = off, or anything from 60 to 110
   * vertical sync = on
+* Setting low latency mode to on or ultra forces a frame rate cap of 116 fps (slightly below the monitor refresh rate of 120 hz)
+* You can get a locked 120 fps with vsync=on and gsync=on if you set low latency mode to off, but this will lead to higher input latency in godot games
+  * Interestingly, LLM doesn't seem to affect the Unity ZoomTracks game
+  * I suspect it is because ZoomTracks sets maxQueuedFrames to 1, which may be what LLM=Ultra does.
+  * Last time I investigated, Godot doesn't have an equivalent to maxQueuedFrames=1
 * Launch the game with a cmd+PowerShell launcher that sets process priority to "High"
 * On the secondary monitor (U2717D) you should be able to play a fullscreen Youtube video in Edge browser that hardware accel enabled, and the game should still run smoothly on the primary monitor
 
