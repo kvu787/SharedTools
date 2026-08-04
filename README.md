@@ -2,6 +2,10 @@
 
 System setup:
 
+* Keep the laptop lid open even if you're using external monitor/keyboard/mouse instead of using the laptop's built-in screen/keyboard/trackpad
+  * It's possible that closing the laptop lid triggers some odd firmware/software states
+  * I speculate that some display issues awhile back were caused by using the laptop with the lid closed
+  * Also, having an open lid supposedly helps with heat dissipation
 * Setup PA278QGV like this:
   * Connect to laptop's Thunderbolt 5 ports using DisplayPort (monitor side) to USB-C (laptop side) cable
   * OSD > Menu > Settings > All Reset = YES
