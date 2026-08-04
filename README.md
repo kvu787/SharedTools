@@ -77,6 +77,10 @@ Tested with:
   * 1x HDMI port
   * 2x Thunderbolt 5 ports
 
+Example sessions:
+* "C:\Users\k\Repository\SharedTools\SavedLogOutput\2026-08-03_18-14-29 godot VsyncStutterTest"
+* "C:\Users\k\Repository\SharedTools\SavedLogOutput\2026-08-03_19-11-14 unity ZoomTracks"
+
 # VSync input latency
 
 Based on the PresentMon captures in `C:\Users\k\Repository\SharedTools\SavedLogOutput\aoe4 input latency testing`, it seems like using VSync without VRR introduces 2 frames of input latency for a total upper bound of 4 frames of input latency.
