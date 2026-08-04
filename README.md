@@ -52,6 +52,18 @@ System setup:
 * legion space
   * toggle it between performance and balance a few times and then set to performance
 
+Recommended Intel PresentMon settings:
+
+* This is for Intel PresentMon from https://game.intel.com/us/intel-presentmon/ not the PresentMon from https://github.com/gametechdev/presentmon
+* Settings > Overlay > Windowed Mode = On
+  * This is very important; using the monitor in overlay mode can mess with the display pipeline.
+  * Move the monitor window away from the game screen onto a secondary screen.
+* Settings > Overlay > Width = 400
+* Settings > Overlay > Time Scale = 2.0
+* Settings > Overlay > Draw Rate = 10
+* Settings > Overlay > Background Color = opaque black
+* Settings > Data > Polling Rate = 240 (or whatever the maximum is)
+
 Per program setup:
 
 * Create an nvcp profile for the exe
