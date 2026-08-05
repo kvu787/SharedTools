@@ -77,6 +77,14 @@ Recommended Intel PresentMon settings:
 * Settings > Overlay > Background Color = opaque black
 * Settings > Data > Polling Rate = 240 (or whatever the maximum is)
 
+Fps cap imposed by ultra low latency mode
+* These notes assume that ivsync=off and imfr=off
+* gsync=on & lolm=ultra is required to get minimal input latency in some games, such as Godot engine games (see VsyncStutterTest)
+* The weird thing is that doing gsync=on & nvsync=on|off & lolm=ultra & nmfr=off results in a frame rate limiter being added
+  * If nvsync is off, the fps is capped to 1250
+  * If nvsync is on, the fps is capped to 1 to 20 fps below the current refresh rate of the monitor
+* I've observed this behavior on at least two different monitors (PA278QGV and XG27AQNGV)
+
 Per program setup:
 
 * Create an nvcp profile for the exe
