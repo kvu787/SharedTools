@@ -10,6 +10,10 @@
 * PMM = Power management mode setting in nvcp
 * IVsync = Vsync set by the game or engine code ("I" stands for internal)
 * IMFR = frame rate limiter implemented by the game or engine code ("I" stands for internal)
+* WRR = Windows refresh rate = The refresh rate in Hz set by "Windows 11 > Settings > System > Display > Advanced display > Choose a refresh rate"
+  * This is distinct from the refresh rate derived from VRR behavior
+  * A single display can have different max WRRs for different resolutions
+  * A single display can have different WRR options (such as 59.95, 100, 120) for a single resolution
 
 # Recommended setup for Unity and Godot games
 
@@ -84,6 +88,9 @@ Fps cap imposed by ultra low latency mode
   * If nvsync is off, the fps is capped to 1250
   * If nvsync is on, the fps is capped to 1 to 20 fps below the current refresh rate of the monitor
 * I've observed this behavior on at least two different monitors (PA278QGV and XG27AQNGV)
+* However, if you do gsync=on & nvsync=on|off & lolm=off & nmfr=off, you get the expected behavior:
+  * If nvsync is off, the fps is uncapped
+  * If nvsync is on, the fps is capped to the current refresh rate of the monitor
 
 Per program setup:
 
