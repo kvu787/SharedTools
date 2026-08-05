@@ -1,3 +1,16 @@
+# Abbreviations
+
+* NVCP = Nvidia Control Panel
+* NApp = Nvidia App
+* NPI = Nvidia Profile Inspector
+* GSync = Nvidia G-Sync (configured in nvcp)
+* NVSync = VSync set to "On" in nvcp
+* NMFR = Max frame rate setting in nvcp
+* LoLM = Low latency mode setting in nvcp
+* PMM = Power management mode setting in nvcp
+* IVsync = Vsync set by the game or engine code ("I" stands for internal)
+* IMFR = frame rate limiter implemented by the game or engine code ("I" stands for internal)
+
 # Recommended setup for Unity and Godot games
 
 System setup:
