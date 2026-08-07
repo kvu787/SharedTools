@@ -114,8 +114,8 @@ Per program setup:
   * vertical sync = on
 * Setting low latency mode to ultra forces a frame rate cap of 116 fps (slightly below the monitor refresh rate of 120 hz)
 * You can get a locked 120 fps with vsync=on and gsync=on if you set low latency mode to off, but this will lead to higher input latency in godot games
-  * Interestingly, LLM doesn't seem to affect the Unity ZoomTracks game
-  * I suspect it is because ZoomTracks sets maxQueuedFrames to 1, which may be what LLM=Ultra does.
+  * Interestingly, LoLM doesn't seem to affect the Unity ZoomTracks game
+  * I suspect it is because ZoomTracks sets maxQueuedFrames to 1, which may be what LoLM=Ultra does.
   * Last time I investigated, Godot doesn't have an equivalent to maxQueuedFrames=1
 * Launch the game with a cmd+PowerShell launcher that sets process priority to "High"
 * On the secondary monitor (U2717D) you should be able to play a fullscreen Youtube video in Edge browser that hardware accel enabled, and the game should still run smoothly on the primary monitor
@@ -139,9 +139,9 @@ Example sessions:
 * "C:\Users\k\Repository\SharedTools\SavedLogOutput\2026-08-03_18-14-29 godot VsyncStutterTest"
 * "C:\Users\k\Repository\SharedTools\SavedLogOutput\2026-08-03_19-11-14 unity ZoomTracks"
 
-# VSync input latency
+# NVSync input latency
 
-Based on the PresentMon captures in `C:\Users\k\Repository\SharedTools\SavedLogOutput\aoe4 input latency testing`, it seems like using VSync without VRR introduces 2 frames of input latency for a total upper bound of 4 frames of input latency.
+Based on the PresentMon captures in `C:\Users\k\Repository\SharedTools\SavedLogOutput\aoe4 input latency testing`, it seems like using NVSync without VRR introduces 2 frames of input latency for a total upper bound of 4 frames of input latency.
 I tried various configurations, but I couldn't eliminate that extra input latency.
 
 Using VRR results in an upper bound of 2 frames of input latency, which is pretty good.
