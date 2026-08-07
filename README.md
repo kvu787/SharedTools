@@ -69,6 +69,19 @@ System setup:
 * legion space
   * toggle it between performance and balance a few times and then set to performance
 
+Exception for Unity engine games (such as ZoomTracks):
+
+* Unity engine exposes a setting called `QualitySettings.maxQueuedFrames`
+  * I think that the equivalent setting in Godot is `rendering/rendering_device/vsync/frame_queue_size`
+* Unity allows this to be set to 1, while Godot enforces a minimum of 2
+* When QualitySettings.maxQueuedFrames=1, it is unnecessary to set LoLM=Ultra
+* You can set LoLM=Off and still achieve 2-interval input latency
+* By setting LoLM=Off, you also turn off the Nvidia imposed fps limiter, allowing you to achieve synced max refresh rate *and* minimum input latency
+* I specifically demonstrated this with the session in `C:\Users\k\Repository\SharedTools\SavedLogOutput\2026-08-06_20-51-39 -- ZoomTracks -- max refresh rate -- 2-interval input latency`
+  * That session uses these settings: GSync=on, NVSync=on, NMFR=off, LoLM=off, PMM=max, IVSync=off, IMFR=off
+  * You can see that it runs at a synced 120 hz *and* has an upper bound of 2 intervals for input latency
+  * If you ran with the following settings, you could achieve a locked 120 hz, but I don't think it would be "synced": GSync=on, NVSync=off, NMFR=120, LoLM=off, PMM=max, IVSync=off, IMFR=off
+
 Recommended Intel PresentMon settings:
 
 * This is for Intel PresentMon from https://game.intel.com/us/intel-presentmon/ not the PresentMon from https://github.com/gametechdev/presentmon
