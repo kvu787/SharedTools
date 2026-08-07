@@ -39,14 +39,6 @@ System setup:
   * OSD > Menu > Image > Trace Free = 0
   * OSD > Menu > Palette > Brightness = 150
   * OSD > Menu > Settings > MediaSync = ON
-* Setup U2717D like this:
-  * Connect to laptop's Thunderbolt 5 ports using DisplayPort (monitor side) to USB-C (laptop side) cable
-  * OSD > Others > Reset Others
-  * OSD > Others > Factory Reset
-  * OSD > Menu > Timer = 60 s
-  * OSD > Menu > Transparency = 0
-  * OSD > Brightness/Contrast > Brightness = 20
-  * OSD > Others > DDC/CI = Disable
 * Do a "Ctrl + Shift + Win + B"
 * Do a clean reinstall of the graphics driver
   * Or: use Nvidia Profile Inspector to reset global settings and delete per-program profiles
@@ -59,9 +51,8 @@ System setup:
 * Do a "Ctrl + Shift + Win + B"
 * In windows display settings:
   * Arrange all three screens (including laptop screen)
-  * Set PA278QGV to main display
-  * Set PA278QGV to 120 hz
-  * Set U2717D to 59.95 hz
+  * Set one of the PA278QGV to main display
+  * Set both PA278QGV to 120 hz
   * Disconnect the laptop screen
 * Open nvcp
   * Set "global settings > power management mode = prefer maximum performance" 
@@ -118,14 +109,13 @@ Per program setup:
   * I suspect it is because ZoomTracks sets maxQueuedFrames to 1, which may be what LoLM=Ultra does.
   * Last time I investigated, Godot doesn't have an equivalent to maxQueuedFrames=1
 * Launch the game with a cmd+PowerShell launcher that sets process priority to "High"
-* On the secondary monitor (U2717D) you should be able to play a fullscreen Youtube video in Edge browser that hardware accel enabled, and the game should still run smoothly on the primary monitor
+* On the secondary monitor you should be able to play a fullscreen Youtube video in Edge browser that hardware accel enabled, and the game should still run smoothly on the primary monitor
 
 Tested with:
 
 * Windows 11 Pro 25H2 26200.8875
 * Nvidia Game Ready Driver 596.49
-* Primary monitor: Asus ProArt PA278QGV
-* Secondary monitor: Dell UltraSharp U2717D
+* Primary and secondary monitor: Asus ProArt PA278QGV
 * Cable Matters 54Gbps Unidirectional USB C to DisplayPort 2.1 Cable
   * Cable Matters Product ID = 201456
 * 2025 Lenovo Legion 9i 18IAX10
