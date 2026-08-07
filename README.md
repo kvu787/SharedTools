@@ -13,7 +13,7 @@
 * WRR = Windows refresh rate = The refresh rate in Hz set by "Windows 11 > Settings > System > Display > Advanced display > Choose a refresh rate"
   * This is distinct from the refresh rate derived from VRR behavior
   * A single display can have different max WRRs for different resolutions
-  * A single display can have different WRR options (such as 59.95, 100, 120) for a single resolution
+  * A single display can have different WRR options (such as 59.95, 74.97 100, 120) for a single resolution
 
 # Recommended setup for Unity and Godot games
 
