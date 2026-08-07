@@ -15,6 +15,19 @@
   * A single display can have different max WRRs for different resolutions
   * A single display can have different WRR options (such as 59.95, 74.97 100, 120) for a single resolution
 
+# If GSync stops working
+
+If GSync does not activate when expected
+Or if GSync activates when it shouldn't (when using godot editor or dx12 unity editor)
+
+Do this:
+* ctrl + shift + win + B
+* open nvcp
+* disable gsync
+* re-enable gsync
+* open windows display settings
+* disconnect laptop screen
+
 # Recommended setup for Unity and Godot games
 
 System setup:
